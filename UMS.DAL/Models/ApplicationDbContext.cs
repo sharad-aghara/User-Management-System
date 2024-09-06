@@ -83,6 +83,7 @@ public partial class ApplicationDbContext : DbContext
             entity.Property(e => e.Gender).HasMaxLength(10);
             entity.Property(e => e.Hobbies).HasMaxLength(255);
             entity.Property(e => e.IsApproved).HasDefaultValue(false);
+            entity.Property(e => e.IsPasswordChanged).HasDefaultValue(false);
             entity.Property(e => e.LastName).HasMaxLength(50);
             entity.Property(e => e.PasswordHash).HasMaxLength(255);
             entity.Property(e => e.PhoneNumber).HasMaxLength(15);

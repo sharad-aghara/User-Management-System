@@ -158,9 +158,11 @@ namespace WebApplication2.Controllers
                     TalukaId = model.TalukaId,
                     Hobbies = selectedHobbiesString,
                     DateOfBirth = model.DateOfBirth,
-                    PasswordHash = GenerateRandomPassword(),
                     RoleId = 2,
-                    IsApproved = false
+                    IsApproved = false,
+                    IsPasswordChanged = false,
+                    PasswordHash = GenerateRandomPassword(),
+                    //PasswordHash = "000000"
                     //PasswordHash = HashPassword(model.Password),
                     //Hobbies = string.Join(",", model.SelectedHobbies ?? new List<int>()),
                 };

@@ -15,3 +15,4 @@ C:\Users\BAPS\source\repos\WebApplication2\UMS.DAL\obj\Debug\net8.0\refint\UMS.D
 C:\Users\BAPS\source\repos\WebApplication2\UMS.DAL\obj\Debug\net8.0\UMS.DAL.pdb
 C:\Users\BAPS\source\repos\WebApplication2\UMS.DAL\obj\Debug\net8.0\UMS.DAL.genruntimeconfig.cache
 C:\Users\BAPS\source\repos\WebApplication2\UMS.DAL\obj\Debug\net8.0\ref\UMS.DAL.dll
+C:\Users\BAPS\source\repos\WebApplication2\UMS.DAL\obj\Debug\net8.0\UMS.DAL.sourcelink.json

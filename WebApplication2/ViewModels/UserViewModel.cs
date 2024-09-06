@@ -41,16 +41,17 @@ namespace WebApplication2.ViewModels
 
         [Required]
         [DataType(DataType.Date)]
-        public DateOnly DateOfBirth { get; set; }
+        public DateOnly? DateOfBirth { get; set; }
 
         [Required]
         public int RoleId { get; set; } = 2; // Dropdown for roles
 
         [Required]
         [DataType(DataType.Password)]
-        public string Password { get; set; } = "Demo@123";
+        public string PasswordHash { get; set; }
 
-        public bool IsApproved { get; set; } // Can only be modified by an Admin
+        public bool IsApproved { get; set; }
+        public bool? IsPasswordChanged { get; set; }
 
         // To populate dropdowns
         public IEnumerable<SelectListItem>? States { get; set; }

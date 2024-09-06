@@ -43,9 +43,10 @@ namespace WebApplication2.Controllers
                 StateId = user.StateId,
                 DistrictId = user.DistrictId,
                 TalukaId = user.TalukaId,
-                DateOfBirth = user.DateOfBirth,
                 RoleId = user.RoleId,
-                IsApproved = user.IsApproved
+                IsPasswordChanged = user.IsPasswordChanged,
+                DateOfBirth = user.DateOfBirth,
+                //IsApproved = user.IsApproved
                 //Hobbies = user.Hobbies,
             }).ToList();
 

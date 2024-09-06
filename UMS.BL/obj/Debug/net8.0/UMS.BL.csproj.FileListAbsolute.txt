@@ -15,3 +15,4 @@ C:\Users\BAPS\source\repos\WebApplication2\UMS.BL\obj\Debug\net8.0\UMS.BL.dll
 C:\Users\BAPS\source\repos\WebApplication2\UMS.BL\obj\Debug\net8.0\refint\UMS.BL.dll
 C:\Users\BAPS\source\repos\WebApplication2\UMS.BL\obj\Debug\net8.0\UMS.BL.pdb
 C:\Users\BAPS\source\repos\WebApplication2\UMS.BL\obj\Debug\net8.0\ref\UMS.BL.dll
+C:\Users\BAPS\source\repos\WebApplication2\UMS.BL\obj\Debug\net8.0\UMS.BL.sourcelink.json

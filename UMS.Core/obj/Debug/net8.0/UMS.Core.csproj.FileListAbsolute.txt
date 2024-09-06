@@ -9,3 +9,4 @@ C:\Users\BAPS\source\repos\WebApplication2\UMS.Core\obj\Debug\net8.0\UMS.Core.dl
 C:\Users\BAPS\source\repos\WebApplication2\UMS.Core\obj\Debug\net8.0\refint\UMS.Core.dll
 C:\Users\BAPS\source\repos\WebApplication2\UMS.Core\obj\Debug\net8.0\UMS.Core.pdb
 C:\Users\BAPS\source\repos\WebApplication2\UMS.Core\obj\Debug\net8.0\ref\UMS.Core.dll
+C:\Users\BAPS\source\repos\WebApplication2\UMS.Core\obj\Debug\net8.0\UMS.Core.sourcelink.json

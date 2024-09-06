@@ -45,9 +45,9 @@ namespace WebApplication2.Controllers
 
             var foundUser = await _userService.FindUserAndLogin(user.Email, user.Password);
 
-            var userRole = await _userService.FindUserByEmail(user.Email);
+            var userEntity = await _userService.FindUserByEmail(user.Email);
 
-            if (foundUser != null && userRole != null)
+            if (foundUser != null && userEntity != null)
             {
                 var token = _configuration.GenerateToken(foundUser);
 
@@ -59,8 +59,18 @@ namespace WebApplication2.Controllers
                     //return RedirectToRoute(ReturnUrl);
                     return RedirectToAction(segments[segments.Length - 2], segments[segments.Length - 3], new { id = segments[segments.Length - 1] });
                 }
-                return RedirectToAction("Index", "Home");
-                //return RedirectToAction(ReturnUrl?? "Index", "Home");
+
+                bool isPasswordChanged = (bool)userEntity.IsPasswordChanged;
+
+                if(isPasswordChanged) {
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    return RedirectToAction("ChangePassword", "Account");
+                }
+
+                
             }
 
             ModelState.AddModelError("", "Invalid email or password.");

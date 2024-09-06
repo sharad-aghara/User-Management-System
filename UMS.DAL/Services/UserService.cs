@@ -87,6 +87,7 @@ namespace UMS.DAL.Services
             {
                 user.PasswordHash = newPassword;
                 //user.PasswordHash = HashPassword(newPassword);
+                user.IsPasswordChanged = true;
                 await _userRepo.UpdateAsync(user);
                 return true;
             }

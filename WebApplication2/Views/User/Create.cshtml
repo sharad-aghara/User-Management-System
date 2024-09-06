@@ -7,7 +7,7 @@
 
  <h2 class="mb-4">Create User</h2>
 
-<form asp-action="Create" enctype="multipart/form-data" onsubmit="return validateCaptchaBeforeSubmit()">
+<form asp-action="Create" enctype="multipart/form-data" >
     <div class="row">
         <div class="col-md-6 mb-3">
             <label asp-for="FirstName" class="form-label"></label>
@@ -39,8 +39,7 @@
     <div class="row">
         <div class="col-md-6 mb-3">
             <label asp-for="DateOfBirth" class="form-label">Date of Birth</label>
-            <input asp-for="DateOfBirth" class="form-control" type="date" 
-                    value="@(Model.DateOfBirth != DateOnly.MinValue ? Model.DateOfBirth.ToString("yyyy-MM-dd") : "")" 
+            <input asp-for="DateOfBirth" class="form-control" type="date"
                     max="@DateTime.Now.ToString("yyyy-MM-dd")" />
             <span asp-validation-for="DateOfBirth" class="text-danger"></span>
         </div>
@@ -96,12 +95,13 @@
     </div>
 
     <div class="mb-3">
+        <input asp-for="PasswordHash" value="000000" hidden class="form-control" />
         <label asp-for="ProfilePhoto" class="form-label"></label>
         <input asp-for="ProfilePhoto" type="file" class="form-control" />
         <span asp-validation-for="ProfilePhoto" class="text-danger"></span>
     </div>
 
-    <div class="mb-3">
+    @* <div class="mb-6">
         <div class="captcha-container">
             <label for="captchaInput" class="form-label">Enter the CAPTCHA</label>
             <div class="input-group">
@@ -110,7 +110,7 @@
             </div>
             <p id="captchaResult" class="text-danger"></p>
         </div>
-    </div>
+    </div> *@
 
     <div class="mb-3">
         <button type="submit" class="btn btn-primary">Create</button>
@@ -164,49 +164,47 @@
         });
     </script>
 
-    <script>
-    let generatedCaptcha = "";
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.6.0.min.js"></script>
+@*     <script>
+        let generatedCaptcha = "";
 
-    // Function to generate random CAPTCHA
-    function generateCaptcha() {
-        const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-        let captcha = "";
-        for (let i = 0; i < 6; i++) {
-            captcha += characters.charAt(Math.floor(Math.random() * characters.length));
+        // Function to generate random CAPTCHA
+        function generateCaptcha() {
+            const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            let captcha = "";
+            for (let i = 0; i < 6; i++) {
+                captcha += characters.charAt(Math.floor(Math.random() * characters.length));
+            }
+            generatedCaptcha = captcha;
+            document.getElementById("captchaText").textContent = captcha;
         }
-        generatedCaptcha = captcha;
-        document.getElementById("captchaText").textContent = captcha;
-    }
 
-    // Function to validate user input against the generated CAPTCHA
-    function validateCaptcha() {
-        const userInput = document.getElementById("captchaInput").value;
-        const resultElement = document.getElementById("captchaResult");
+        // Function to validate user input against the generated CAPTCHA
+        function validateCaptcha() {
+            const userInput = document.getElementById("captchaInput").value.trim();
+            const resultElement = document.getElementById("captchaResult");
 
-        if (userInput === generatedCaptcha) {
-            resultElement.style.color = "green";
-            resultElement.textContent = "CAPTCHA passed!";
-            return true;
-        } else {
-            resultElement.style.color = "red";
-            resultElement.textContent = "CAPTCHA failed! Try again.";
-            generateCaptcha(); // Regenerate CAPTCHA on failure
-            return false;
+            if (userInput === generatedCaptcha) {
+                resultElement.style.color = "green";
+                resultElement.textContent = "CAPTCHA passed!";
+                return true;
+            } else {
+                resultElement.style.color = "red";
+                resultElement.textContent = "CAPTCHA failed! Try again.";
+                generateCaptcha(); // Regenerate CAPTCHA on failure
+                return false;
+            }
         }
-    }
 
-    // Function to validate CAPTCHA before submitting the form
-    function validateCaptchaBeforeSubmit() {
-        const isValidCaptcha = validateCaptcha();
-        if (!isValidCaptcha) {
-            return false; // Prevent form submission
+        // Function to validate CAPTCHA before submitting the form
+        function validateCaptchaBeforeSubmit() {
+            const isValidCaptcha = validateCaptcha();
+            return isValidCaptcha; // Allow or prevent form submission based on CAPTCHA validity
         }
-        return true; // Allow form submission if CAPTCHA is valid
-    }
 
-    // Generate CAPTCHA when the page loads
-    window.onload = generateCaptcha;
-</script>
+        // Generate CAPTCHA when the page loads
+        window.onload = generateCaptcha;
+    </script> *@
 
 }
 
