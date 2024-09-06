@@ -1,0 +1,54 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+.navbar-nav.ml-auto {
+    margin-left: auto;
+}
+
+.nav-item {
+    margin-left: 10px; /* Adjust spacing between items if needed */
+}
+
+.captcha-container {
+    margin: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    display: inline-block;
+}
+
+#captchaText {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+#captchaInput {
+    margin-right: 10px;
+}
+
+.non-selectable {
+    user-select: none; /* For modern browsers */
+    -webkit-user-select: none; /* For Safari and Chrome */
+    -moz-user-select: none; /* For Firefox */
+    -ms-user-select: none; /* For Internet Explorer/Edge */
+    -o-user-select: none; /* For Opera */
+}

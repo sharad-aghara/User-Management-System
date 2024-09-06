@@ -1,0 +1,1 @@
+﻿Scaffold-DbContext "Server=DESKTOP-EO2GF4J;Database=UMSWebApplication2;Trusted_Connection=True;TrustServerCertificate=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models -Context ApplicationDbContext

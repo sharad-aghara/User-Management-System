@@ -1,0 +1,78 @@
+﻿using Microsoft.AspNetCore.Mvc;
+using UMS.DAL.Interfaces;
+using Microsoft.Extensions.Configuration;
+using Microsoft.VisualBasic;
+using UMS.BL.Helpers;
+using WebApplication2.ViewModels;
+using UMS.Core;
+
+namespace WebApplication2.Controllers
+{
+    public class AuthController : Controller
+    {
+        private readonly IConfiguration _configuration;
+        private readonly IUserService _userService;
+
+        public AuthController(IConfiguration configuration, IUserService userService)
+        {
+            _configuration = configuration;
+            _userService = userService;
+        }
+
+        public IActionResult Index()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult Login()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Login(LoginViewModel user, string ReturnUrl = null)
+        {
+
+            if (!ModelState.IsValid)
+            {
+                return View(user);
+            }
+
+            var foundUser = await _userService.FindUserAndLogin(user.Email, user.Password);
+
+            var userRole = await _userService.FindUserByEmail(user.Email);
+
+            if (foundUser != null && userRole != null)
+            {
+                var token = _configuration.GenerateToken(foundUser);
+
+                CookieHelper.SetCookie(HttpContext, Constant.JWT_COOKIE_NAME, token, Constant.DEFAULT_COOKIE_EXPIRY);
+
+                if (ReturnUrl != null)
+                {
+                    var segments = ReturnUrl.Split('/');
+                    //return RedirectToRoute(ReturnUrl);
+                    return RedirectToAction(segments[segments.Length - 2], segments[segments.Length - 3], new { id = segments[segments.Length - 1] });
+                }
+                return RedirectToAction("Index", "Home");
+                //return RedirectToAction(ReturnUrl?? "Index", "Home");
+            }
+
+            ModelState.AddModelError("", "Invalid email or password.");
+            return View(user);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Logout()
+        {
+            CookieHelper.RemoveCookie(HttpContext, Constant.JWT_COOKIE_NAME);
+            return RedirectToAction("Login", "Auth");
+        }
+    }
+}

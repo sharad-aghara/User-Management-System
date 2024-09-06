@@ -1,0 +1,40 @@
+﻿@model WebApplication2.ViewModels.LoginViewModel
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+<form class="form" asp-action="Login" asp-controller="Auth" method="post">
+    <input type="hidden" name="ReturnUrl" value="@ViewContext.HttpContext.Request.Query["ReturnUrl"]" />
+
+    <div class="text-center my-4">
+        <h2 class="fw-bold">Login</h2>
+    </div>
+
+    <div class="mb-4">
+        <div class="form-group">
+            <label asp-for="Email" class="form-label">Email address</label>
+            <input asp-for="Email" type="email" class="form-control form-control-lg" placeholder="Enter a valid email address" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="mb-4 position-relative">
+        <div class="form-group">
+            <label asp-for="Password" class="form-label">Password</label>
+            <input asp-for="Password" type="password" class="form-control form-control-lg" placeholder="Enter password" id="passwordInput" />
+            <span asp-validation-for="Password" class="text-danger"></span>
+            <button type="button" id="togglePassword" class="btn btn-outline-secondary position-absolute" style="right: 10px; top: 50%;">
+                <i class="fas fa-eye" id="eyeIcon"></i>
+            </button>
+        </div>
+    </div>
+
+    <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+    <div class="text-center mt-4">
+        <button type="submit" class="btn btn-primary btn-lg">
+            Login
+        </button>
+    </div>
+</form>

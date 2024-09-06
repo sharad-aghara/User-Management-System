@@ -1,0 +1,212 @@
+﻿ @model WebApplication2.ViewModels.UserViewModel
+
+ @{
+     
+ }
+
+
+ <h2 class="mb-4">Create User</h2>
+
+<form asp-action="Create" enctype="multipart/form-data" onsubmit="return validateCaptchaBeforeSubmit()">
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <label asp-for="FirstName" class="form-label"></label>
+            <input asp-for="FirstName" class="form-control" />
+            <span asp-validation-for="FirstName" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <label asp-for="LastName" class="form-label"></label>
+            <input asp-for="LastName" class="form-control" />
+            <span asp-validation-for="LastName" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <label asp-for="Email" class="form-label"></label>
+            <input asp-for="Email" class="form-control" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <label asp-for="PhoneNumber" class="form-label"></label>
+            <input asp-for="PhoneNumber" class="form-control" />
+            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <label asp-for="DateOfBirth" class="form-label">Date of Birth</label>
+            <input asp-for="DateOfBirth" class="form-control" type="date" 
+                    value="@(Model.DateOfBirth != DateOnly.MinValue ? Model.DateOfBirth.ToString("yyyy-MM-dd") : "")" 
+                    max="@DateTime.Now.ToString("yyyy-MM-dd")" />
+            <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <label asp-for="Gender" class="form-label"></label>
+            <select asp-for="Gender" class="form-select">
+                <option value="" hidden disabled selected>Select Gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+            </select>
+            <span asp-validation-for="Gender" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4 mb-3">
+            <label asp-for="StateId" class="form-label">State</label>
+            <select asp-for="StateId" id="StateSelect" asp-items="Model.States" class="form-select">
+                <option value="" hidden disabled selected>Select State</option>
+            </select>
+            <span asp-validation-for="StateId" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-4 mb-3">
+            <label asp-for="DistrictId" class="form-label">District</label>
+            <select asp-for="DistrictId" id="DistrictSelect" asp-items="Model.Districts" class="form-select">
+                <option value="" hidden disabled selected>Select District</option>
+            </select>
+            <span asp-validation-for="DistrictId" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-4 mb-3">
+            <label asp-for="TalukaId" class="form-label">Taluka</label>
+            <select asp-for="TalukaId" id="TalukaSelect" asp-items="Model.Talukas" class="form-select">
+                <option value="" hidden disabled selected>Select Taluka</option>
+            </select>
+            <span asp-validation-for="TalukaId" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label>Select Your Hobbies</label>
+        @foreach (var hobby in Model.Hobbies)
+        {
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" name="SelectedHobbies" value="@hobby.Value"
+                        @(Model.SelectedHobbies != null && Model.SelectedHobbies.Contains(int.Parse(hobby.Value)) ? "checked" : "") />
+                <label class="form-check-label">@hobby.Text</label>
+            </div>
+        }
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="ProfilePhoto" class="form-label"></label>
+        <input asp-for="ProfilePhoto" type="file" class="form-control" />
+        <span asp-validation-for="ProfilePhoto" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <div class="captcha-container">
+            <label for="captchaInput" class="form-label">Enter the CAPTCHA</label>
+            <div class="input-group">
+                <input type="text" id="captchaInput" class="form-control" placeholder="Enter CAPTCHA" required />
+                <span class="input-group-text non-selectable" id="captchaText"></span>
+            </div>
+            <p id="captchaResult" class="text-danger"></p>
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <button type="submit" class="btn btn-primary">Create</button>
+        <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+    </div>
+</form>
+
+
+@section Scripts {
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.6.0.min.js"></script>
+    <script>
+        $(function () {
+            // Handle State dropdown change
+            $("#StateSelect").change(function () {
+                var stateId = $(this).val();
+
+                // Clear and disable District and Taluka dropdowns
+                $("#DistrictSelect").empty().append('<option value="" hidden disabled selected>Select District</option>').prop('disabled', true);
+                $("#TalukaSelect").empty().append('<option value="" hidden disabled selected>Select Taluka</option>').prop('disabled', true);
+
+                if (stateId) {
+                    $.getJSON(`/GetDistrictsByStateIdAsync?stateId=${stateId}`, function (data) {
+                        $("#DistrictSelect").prop('disabled', false);
+                        $.each(data, function (i, item) {
+                            $("#DistrictSelect").append(`<option value="${item.value}">${item.text}</option>`);
+                        });
+                    }).fail(function (jqXHR, textStatus, errorThrown) {
+                        console.error('Error fetching districts:', textStatus, errorThrown);
+                    });
+                }
+            });
+
+            // Handle District dropdown change
+            $("#DistrictSelect").change(function () {
+                var districtId = $(this).val();
+
+                // Clear and disable Taluka dropdown
+                $("#TalukaSelect").empty().append('<option value="" hidden disabled selected>Select Taluka</option>').prop('disabled', true);
+
+                if (districtId) {
+                    $.getJSON(`/User/GetTalukasByDistrictIdAsync?districtId=${districtId}`, function (data) {
+                        $("#TalukaSelect").prop('disabled', false);
+                        $.each(data, function (i, item) {
+                            $("#TalukaSelect").append(`<option value="${item.value}">${item.text}</option>`);
+                        });
+                    }).fail(function (jqXHR, textStatus, errorThrown) {
+                        console.error('Error fetching talukas:', textStatus, errorThrown);
+                    });
+                }
+            });
+        });
+    </script>
+
+    <script>
+    let generatedCaptcha = "";
+
+    // Function to generate random CAPTCHA
+    function generateCaptcha() {
+        const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        let captcha = "";
+        for (let i = 0; i < 6; i++) {
+            captcha += characters.charAt(Math.floor(Math.random() * characters.length));
+        }
+        generatedCaptcha = captcha;
+        document.getElementById("captchaText").textContent = captcha;
+    }
+
+    // Function to validate user input against the generated CAPTCHA
+    function validateCaptcha() {
+        const userInput = document.getElementById("captchaInput").value;
+        const resultElement = document.getElementById("captchaResult");
+
+        if (userInput === generatedCaptcha) {
+            resultElement.style.color = "green";
+            resultElement.textContent = "CAPTCHA passed!";
+            return true;
+        } else {
+            resultElement.style.color = "red";
+            resultElement.textContent = "CAPTCHA failed! Try again.";
+            generateCaptcha(); // Regenerate CAPTCHA on failure
+            return false;
+        }
+    }
+
+    // Function to validate CAPTCHA before submitting the form
+    function validateCaptchaBeforeSubmit() {
+        const isValidCaptcha = validateCaptcha();
+        if (!isValidCaptcha) {
+            return false; // Prevent form submission
+        }
+        return true; // Allow form submission if CAPTCHA is valid
+    }
+
+    // Generate CAPTCHA when the page loads
+    window.onload = generateCaptcha;
+</script>
+
+}
+
