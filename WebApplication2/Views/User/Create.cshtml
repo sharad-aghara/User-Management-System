@@ -7,46 +7,46 @@
 
  <h2 class="mb-4">Create User</h2>
 
-<form asp-action="Create" enctype="multipart/form-data" >
+<form asp-action="Create" enctype="multipart/form-data" onsubmit="validateCaptchaBeforeSubmit()">
     <div class="row">
         <div class="col-md-6 mb-3">
-            <label asp-for="FirstName" class="form-label"></label>
-            <input asp-for="FirstName" class="form-control" />
+            <label asp-for="FirstName" class="form-label">First Name<span class="text-danger">*</span></label>
+            <input asp-for="FirstName" class="form-control" maxlength="50" pattern="[a-zA-Z\s]*" required />
             <span asp-validation-for="FirstName" class="text-danger"></span>
         </div>
 
         <div class="col-md-6 mb-3">
-            <label asp-for="LastName" class="form-label"></label>
-            <input asp-for="LastName" class="form-control" />
+            <label asp-for="LastName" class="form-label">Last Name</label>
+            <input asp-for="LastName" class="form-control" maxlength="50" pattern="[a-zA-Z\s]*" />
             <span asp-validation-for="LastName" class="text-danger"></span>
         </div>
     </div>
 
     <div class="row">
         <div class="col-md-6 mb-3">
-            <label asp-for="Email" class="form-label"></label>
-            <input asp-for="Email" class="form-control" />
+            <label asp-for="Email" class="form-label">Email Address<span class="text-danger">*</span></label>
+            <input asp-for="Email" class="form-control" type="email" maxlength="254" required />
             <span asp-validation-for="Email" class="text-danger"></span>
         </div>
 
         <div class="col-md-6 mb-3">
-            <label asp-for="PhoneNumber" class="form-label"></label>
-            <input asp-for="PhoneNumber" class="form-control" />
+            <label asp-for="PhoneNumber" class="form-label">Phone Number<span class="text-danger">*</span></label>
+            <input asp-for="PhoneNumber" class="form-control" maxlength="10" pattern="\d{10}" required />
             <span asp-validation-for="PhoneNumber" class="text-danger"></span>
         </div>
     </div>
 
     <div class="row">
         <div class="col-md-6 mb-3">
-            <label asp-for="DateOfBirth" class="form-label">Date of Birth</label>
+            <label asp-for="DateOfBirth" class="form-label">Date of Birth<span class="text-danger">*</span></label>
             <input asp-for="DateOfBirth" class="form-control" type="date"
-                    max="@DateTime.Now.ToString("yyyy-MM-dd")" />
+                    max="@DateTime.Now.ToString("yyyy-MM-dd")" required />
             <span asp-validation-for="DateOfBirth" class="text-danger"></span>
         </div>
 
         <div class="col-md-6 mb-3">
-            <label asp-for="Gender" class="form-label"></label>
-            <select asp-for="Gender" class="form-select">
+            <label asp-for="Gender" class="form-label">Gender<span class="text-danger">*</span></label>
+            <select asp-for="Gender" class="form-select" required >
                 <option value="" hidden disabled selected>Select Gender</option>
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
@@ -58,24 +58,24 @@
 
     <div class="row">
         <div class="col-md-4 mb-3">
-            <label asp-for="StateId" class="form-label">State</label>
-            <select asp-for="StateId" id="StateSelect" asp-items="Model.States" class="form-select">
+            <label asp-for="StateId" class="form-label">State<span class="text-danger">*</span></label>
+            <select asp-for="StateId" id="StateSelect" asp-items="Model.States" class="form-select" required >
                 <option value="" hidden disabled selected>Select State</option>
             </select>
             <span asp-validation-for="StateId" class="text-danger"></span>
         </div>
 
         <div class="col-md-4 mb-3">
-            <label asp-for="DistrictId" class="form-label">District</label>
-            <select asp-for="DistrictId" id="DistrictSelect" asp-items="Model.Districts" class="form-select">
+            <label asp-for="DistrictId" class="form-label">District<span class="text-danger">*</span></label>
+            <select asp-for="DistrictId" id="DistrictSelect" asp-items="Model.Districts" class="form-select" required >
                 <option value="" hidden disabled selected>Select District</option>
             </select>
             <span asp-validation-for="DistrictId" class="text-danger"></span>
         </div>
 
         <div class="col-md-4 mb-3">
-            <label asp-for="TalukaId" class="form-label">Taluka</label>
-            <select asp-for="TalukaId" id="TalukaSelect" asp-items="Model.Talukas" class="form-select">
+            <label asp-for="TalukaId" class="form-label">Taluka<span class="text-danger">*</span></label>
+            <select asp-for="TalukaId" id="TalukaSelect" asp-items="Model.Talukas" class="form-select" required >
                 <option value="" hidden disabled selected>Select Taluka</option>
             </select>
             <span asp-validation-for="TalukaId" class="text-danger"></span>
@@ -95,22 +95,20 @@
     </div>
 
     <div class="mb-3">
-        <input asp-for="PasswordHash" value="000000" hidden class="form-control" />
         <label asp-for="ProfilePhoto" class="form-label"></label>
-        <input asp-for="ProfilePhoto" type="file" class="form-control" />
+        <input asp-for="ProfilePhoto" type="file" class="form-control" id="profilePhoto" />
         <span asp-validation-for="ProfilePhoto" class="text-danger"></span>
     </div>
-
-    @* <div class="mb-6">
-        <div class="captcha-container">
-            <label for="captchaInput" class="form-label">Enter the CAPTCHA</label>
-            <div class="input-group">
-                <input type="text" id="captchaInput" class="form-control" placeholder="Enter CAPTCHA" required />
-                <span class="input-group-text non-selectable" id="captchaText"></span>
-            </div>
-            <p id="captchaResult" class="text-danger"></p>
+   
+    <div class="row mb-6 captcha-container">
+        <label for="captchaInput" class="form-label">Enter the CAPTCHA</label>
+        <div class="col-4 input-group">
+            <input type="text" id="captchaInput" class="form-control" placeholder="Enter CAPTCHA" required />
+            <span class="input-group-text non-selectable" id="captchaText"></span>
+            <button type="button" class="btn btn-dark" onclick="generateCaptcha()">Refresh</button>
         </div>
-    </div> *@
+        <p id="captchaResult" class="text-danger"></p>
+    </div>
 
     <div class="mb-3">
         <button type="submit" class="btn btn-primary">Create</button>
@@ -121,6 +119,8 @@
 
 @section Scripts {
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.6.0.min.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
     <script>
         $(function () {
             // Handle State dropdown change
@@ -165,7 +165,7 @@
     </script>
 
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.6.0.min.js"></script>
-@*     <script>
+    <script>
         let generatedCaptcha = "";
 
         // Function to generate random CAPTCHA
@@ -204,7 +204,7 @@
 
         // Generate CAPTCHA when the page loads
         window.onload = generateCaptcha;
-    </script> *@
+    </script>
 
 }
 

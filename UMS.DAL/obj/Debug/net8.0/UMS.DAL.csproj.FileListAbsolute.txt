@@ -9,10 +9,10 @@ C:\Users\BAPS\source\repos\WebApplication2\UMS.DAL\obj\Debug\net8.0\UMS.DAL.Gene
 C:\Users\BAPS\source\repos\WebApplication2\UMS.DAL\obj\Debug\net8.0\UMS.DAL.AssemblyInfoInputs.cache
 C:\Users\BAPS\source\repos\WebApplication2\UMS.DAL\obj\Debug\net8.0\UMS.DAL.AssemblyInfo.cs
 C:\Users\BAPS\source\repos\WebApplication2\UMS.DAL\obj\Debug\net8.0\UMS.DAL.csproj.CoreCompileInputs.cache
+C:\Users\BAPS\source\repos\WebApplication2\UMS.DAL\obj\Debug\net8.0\UMS.DAL.sourcelink.json
 C:\Users\BAPS\source\repos\WebApplication2\UMS.DAL\obj\Debug\net8.0\UMS.DAL.csproj.Up2Date
 C:\Users\BAPS\source\repos\WebApplication2\UMS.DAL\obj\Debug\net8.0\UMS.DAL.dll
 C:\Users\BAPS\source\repos\WebApplication2\UMS.DAL\obj\Debug\net8.0\refint\UMS.DAL.dll
 C:\Users\BAPS\source\repos\WebApplication2\UMS.DAL\obj\Debug\net8.0\UMS.DAL.pdb
 C:\Users\BAPS\source\repos\WebApplication2\UMS.DAL\obj\Debug\net8.0\UMS.DAL.genruntimeconfig.cache
 C:\Users\BAPS\source\repos\WebApplication2\UMS.DAL\obj\Debug\net8.0\ref\UMS.DAL.dll
-C:\Users\BAPS\source\repos\WebApplication2\UMS.DAL\obj\Debug\net8.0\UMS.DAL.sourcelink.json

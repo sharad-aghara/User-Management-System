@@ -43,11 +43,16 @@ namespace WebApplication2.Controllers
                 return View(user);
             }
 
-            var foundUser = await _userService.FindUserAndLogin(user.Email, user.Password);
+            var hashedPassword = HashedPasswordHelper.HashPassword(user.Password);
+
+            //var foundUser = await _userService.FindUserAndLogin(user.Email, user.Password);
+            var foundUser = await _userService.FindUserByEmail(user.Email);
+
+            var validUser = HashedPasswordHelper.VerifyPassword(user.Password, foundUser.PasswordHash);
 
             var userEntity = await _userService.FindUserByEmail(user.Email);
 
-            if (foundUser != null && userEntity != null)
+            if (validUser && userEntity != null)
             {
                 var token = _configuration.GenerateToken(foundUser);
 

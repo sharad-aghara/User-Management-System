@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using UMS.BL.Helpers;
 using UMS.DAL.Interfaces;
 using WebApplication2.ViewModels;
 
@@ -42,8 +43,9 @@ namespace WebApplication2.Controllers
                     return Unauthorized();
                 }
 
+                var hashedPassword = HashedPasswordHelper.HashPassword(model.NewPassword);
                 // Change the password
-                var result = await _userService.ChangePasswordAsync(userEmail, model.NewPassword);
+                var result = await _userService.ChangePasswordAsync(userEmail, hashedPassword);
 
                 if (result)
                 {

@@ -10,7 +10,7 @@ namespace UMS.DAL.Interfaces
     public interface IAdminServices
     {
 
-        Task<bool> ApproveUser(int id);
+        Task<bool> ApproveUserAndGeneratePassword(int id);
         Task<bool> RejectUser(int id);
     }
 }

@@ -5,8 +5,8 @@ C:\Users\BAPS\source\repos\WebApplication2\UMS.Core\obj\Debug\net8.0\UMS.Core.Ge
 C:\Users\BAPS\source\repos\WebApplication2\UMS.Core\obj\Debug\net8.0\UMS.Core.AssemblyInfoInputs.cache
 C:\Users\BAPS\source\repos\WebApplication2\UMS.Core\obj\Debug\net8.0\UMS.Core.AssemblyInfo.cs
 C:\Users\BAPS\source\repos\WebApplication2\UMS.Core\obj\Debug\net8.0\UMS.Core.csproj.CoreCompileInputs.cache
+C:\Users\BAPS\source\repos\WebApplication2\UMS.Core\obj\Debug\net8.0\UMS.Core.sourcelink.json
 C:\Users\BAPS\source\repos\WebApplication2\UMS.Core\obj\Debug\net8.0\UMS.Core.dll
 C:\Users\BAPS\source\repos\WebApplication2\UMS.Core\obj\Debug\net8.0\refint\UMS.Core.dll
 C:\Users\BAPS\source\repos\WebApplication2\UMS.Core\obj\Debug\net8.0\UMS.Core.pdb
 C:\Users\BAPS\source\repos\WebApplication2\UMS.Core\obj\Debug\net8.0\ref\UMS.Core.dll
-C:\Users\BAPS\source\repos\WebApplication2\UMS.Core\obj\Debug\net8.0\UMS.Core.sourcelink.json

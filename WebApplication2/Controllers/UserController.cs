@@ -1,12 +1,13 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using Microsoft.AspNetCore.Mvc;
-using UMS.Core.Interface;
-using UMS.DAL.Interfaces;
-using UMS.DAL.Services;
-using UMS.DAL.Models;
-using WebApplication2.ViewModels;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using UMS.DAL.DTO;
+using System.Security.Cryptography;
+using UMS.BL.Helpers;
+using UMS.DAL.Interfaces;
+using UMS.DAL.Models;
+using UMS.DAL.Services;
+using WebApplication2.ViewModels;
 
 namespace WebApplication2.Controllers
 {
@@ -20,7 +21,7 @@ namespace WebApplication2.Controllers
         private readonly BaseRepository<State> _stateRepo;
         private readonly BaseRepository<User> _userRepo;
 
-        public UserController(ApplicationDbContext Context, IUserService userService, IMapper mapper,IWebHostEnvironment webHostEnvironment)
+        public UserController(ApplicationDbContext Context, IUserService userService, IMapper mapper, IWebHostEnvironment webHostEnvironment)
         {
             _userService = userService;
             _mapper = mapper;
@@ -120,6 +121,15 @@ namespace WebApplication2.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(UserViewModel model)
         {
+            // Check if the email already exists in the database
+            var existingUser = await _userService.FindUserByEmail(model.Email);
+            model.Hobbies = GetHobbies();
+            if (existingUser != null)
+            {
+                ModelState.AddModelError("Email", "This email is already registered.");
+                return View(model);
+            }
+
             if (ModelState.IsValid)
             {
                 // Handle profile photo upload
@@ -161,7 +171,8 @@ namespace WebApplication2.Controllers
                     RoleId = 2,
                     IsApproved = false,
                     IsPasswordChanged = false,
-                    PasswordHash = GenerateRandomPassword(),
+                    //PasswordHash = HashedPasswordHelper.HashPassword("000000")
+                    //PasswordHash = HashedPassword.GenerateRandomPassword()
                     //PasswordHash = "000000"
                     //PasswordHash = HashPassword(model.Password),
                     //Hobbies = string.Join(",", model.SelectedHobbies ?? new List<int>()),
@@ -197,19 +208,31 @@ namespace WebApplication2.Controllers
         }
 
         // Generate Random Password
-        public static string GenerateRandomPassword()
-        {
-            Random random = new Random();
-            int randomNumber = random.Next(100000, 999999);
-            return randomNumber.ToString();
-        }
+        //public static string GenerateRandomPassword()
+        //{
+        //    Random random = new Random();
+        //    int randomNumber = random.Next(100000, 999999);
+        //    //Console.WriteLine("Password: ", randomNumber.ToString());
+        //    var password = randomNumber.ToString();
+        //    return HashPassword(password);
+        //}
 
         // password hashing logic
-        private string HashPassword(string password)
-        {
-            // Implement password hashing logic
-            return password;
-        }
+        //private static string HashPassword(string password)
+        //{
+        //    // Generate a 128-bit salt using a sequence of
+        //    // cryptographically strong random bytes.
+        //    byte[] salt = RandomNumberGenerator.GetBytes(128 / 8); // divide by 8 to convert bits to bytes
+
+        //    string hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(
+        //        password: password!,
+        //        salt: salt,
+        //        prf: KeyDerivationPrf.HMACSHA256,
+        //        iterationCount: 100000,
+        //        numBytesRequested: 256 / 8));
+
+        //    return hashed;
+        //}
 
     }
 }

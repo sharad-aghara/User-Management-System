@@ -29,20 +29,37 @@ body {
     margin-left: 10px; /* Adjust spacing between items if needed */
 }
 
+#profilePhoto {
+    width: 40%;
+}
+
 .captcha-container {
-    margin: 20px;
+    margin: 20px 0px;
     padding: 10px;
     border: 1px solid #ccc;
     display: inline-block;
+    width: 40%;
+}
+
+.input-group {
+    display: flex;
+    align-items: center;
 }
 
 #captchaText {
     font-weight: bold;
     margin-right: 10px;
+    padding: 10px 20px; /* Adjust padding to suit your design */
+    background-color: #f8f9fa; /* Optional: Background color for better visibility */
+    border: 1px solid #ced4da; /* Optional: Border to define the box */
+    width: 120px; /* Fixed width to prevent size change */
+    text-align: center; /* Center the text within the box */
+    box-sizing: border-box; /* Ensure padding and border are included in width */
 }
 
 #captchaInput {
     margin-right: 10px;
+    flex-grow: 1; /* Allow the input to grow and take available space */
 }
 
 .non-selectable {

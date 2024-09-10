@@ -9,16 +9,19 @@ namespace WebApplication2.ViewModels
 
         [Required]
         [StringLength(50)]
+        [RegularExpression(@"^[A-Za-z][A-Za-z\s]*$", ErrorMessage = "Invalid Name")]
         public string FirstName { get; set; }
 
         [StringLength(50)]
-        public string LastName { get; set; }
+        [RegularExpression(@"^[A-Za-z][A-Za-z\s]*$", ErrorMessage = "Invalid Name")]
+        public string? LastName { get; set; }
 
         [Required]
         [EmailAddress]
         public string Email { get; set; }
 
         [Phone]
+        [RegularExpression(@"^\d{10}$", ErrorMessage = "Invalid Phone Number.")]
         public string PhoneNumber { get; set; }
 
         [Required]
@@ -46,9 +49,7 @@ namespace WebApplication2.ViewModels
         [Required]
         public int RoleId { get; set; } = 2; // Dropdown for roles
 
-        [Required]
-        [DataType(DataType.Password)]
-        public string PasswordHash { get; set; }
+        public string? PasswordHash { get; set; }
 
         public bool IsApproved { get; set; }
         public bool? IsPasswordChanged { get; set; }

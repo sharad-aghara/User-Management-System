@@ -31,7 +31,7 @@ public partial class User
 
     public int RoleId { get; set; }
 
-    public string PasswordHash { get; set; } = "000000";
+    public string? PasswordHash { get; set; }
 
     public bool? IsApproved { get; set; }
 

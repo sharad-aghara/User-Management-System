@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using UMS.BL.Helpers;
 using UMS.Core.Interface;
 using UMS.DAL.Interfaces;
 using UMS.DAL.Models;
@@ -57,16 +58,16 @@ namespace WebApplication2.Controllers
         [HttpGet]
         public async Task<IActionResult> ApproveUser(int id)
         {
-            var result = await _adminService.ApproveUser(id);
+            var user = await _userRepo.GetByIdAsync(id);
+            var result = await _adminService.ApproveUserAndGeneratePassword(id);
             
-
-            if (result)
+            if (user != null)
             {
-                var user = await _userRepo.GetByIdAsync(id);
+                var generateRowPassword = HashedPasswordHelper.GenerateRandomPassword();
 
-                Console.WriteLine("user.Email");
-
-                await _emailService.NotifyUserProfileApproved(user.Email, user.PasswordHash);
+                user.PasswordHash = HashedPasswordHelper.HashPassword(generateRowPassword);
+                await _userRepo.UpdateAsync(user);
+                await _emailService.NotifyUserProfileApproved(user.Email, generateRowPassword);
                 return RedirectToAction("Dashboard");
             }
             else
@@ -78,12 +79,12 @@ namespace WebApplication2.Controllers
         [HttpGet]
         public async Task<IActionResult> RejectUser(int id)
         {
+            var user = await _userRepo.GetByIdAsync(id);
             var result = await _adminService.RejectUser(id);
 
-            if (result)
+            if (user != null)
             {
-                var user = await _userRepo.GetByIdAsync(id);
-
+                await _userRepo.DeleteAsync(user);
                 await _emailService.NotifyUserProfileNotApproved(user.Email);
                 return RedirectToAction("Dashboard");
             }

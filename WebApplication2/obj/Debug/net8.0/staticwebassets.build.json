@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "L6EyHGOuX2b5VLy2UDSPmq/Q2Np3JBuw83p1o2aTMfM=",
+  "Hash": "845SSynKu90HtWbKmwm2Ixypi6ZDGEasE/dxrURhIog=",
   "Source": "WebApplication2",
   "BasePath": "_content/WebApplication2",
   "Mode": "Default",
@@ -1440,6 +1440,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\uploads\\758d139b-8c63-4da9-a118-1a15a3329def_Screenshot (5).png"
+    },
+    {
+      "Identity": "C:\\Users\\BAPS\\source\\repos\\WebApplication2\\WebApplication2\\wwwroot\\uploads\\866fec0d-11f1-4631-be53-0bba3cf04aa5_Screenshot (1).png",
+      "SourceId": "WebApplication2",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\BAPS\\source\\repos\\WebApplication2\\WebApplication2\\wwwroot\\",
+      "BasePath": "_content/WebApplication2",
+      "RelativePath": "uploads/866fec0d-11f1-4631-be53-0bba3cf04aa5_Screenshot (1).png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\866fec0d-11f1-4631-be53-0bba3cf04aa5_Screenshot (1).png"
     },
     {
       "Identity": "C:\\Users\\BAPS\\source\\repos\\WebApplication2\\WebApplication2\\wwwroot\\uploads\\8ded8bd8-8dea-477f-ae1d-3508c8378c08_password match.png",
